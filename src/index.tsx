@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from './pages/main';
+import NewUser from './pages/newUser';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Main />
+
+    <hr />
+
+    <NewUser/>
   </React.StrictMode>,
   document.getElementById('root')
 );
