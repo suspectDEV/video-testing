@@ -9,7 +9,7 @@ import React, { ChangeEvent, useState } from "react";
 // }
 
 const peerjs = new Peer(undefined, {
-  host: "/",
+  host: "192.168.1.11",
   port: 3001,
 });
 
