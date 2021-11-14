@@ -1,15 +1,8 @@
 import Peer from "peerjs";
 import React, { ChangeEvent, useState } from "react";
 
-// function connectToUser(userId: string, stream: MediaStream) {
-//   const call = peerjs.call(userId, stream);
-//   call.on("stream", (userVideoStream) => {
-//     console.log(userVideoStream);
-//   });
-// }
-
 const peerjs = new Peer(undefined, {
-  host: "192.168.1.11",
+  host: "192.168.1.4",
   port: 3001,
 });
 
@@ -22,25 +15,25 @@ function NewUser() {
     event.preventDefault()
   }
 
+  const VIDEO = document.getElementById("video-invitado") as HTMLVideoElement;
+  
   function openVideo() {
-    const peers = {};
-    const VIDEO = document.getElementById("video-invitado") as HTMLVideoElement;
-    navigator.mediaDevices
+    console.log("estamos pulsando el boton")
+      navigator.mediaDevices
       .getUserMedia({
         video: true,
         audio: true,
       })
       .then((stream) => {
-        VIDEO.srcObject = stream;
-        VIDEO?.addEventListener("loadedmetadata", () => {
-          VIDEO.play();
+        console.log("estamos en el metodo")
+        var call = peerjs.call(inputValue, stream);
+        call.on("stream", remoteStream => {
+          // Show stream in some video/canvas element.
+          console.log("Recibo datos: " , remoteStream)
         });
-        // onPeer(stream);
-  
-        const call = peerjs.call(inputValue, stream);
-        call.on("stream",remoteStream=>{
-          console.log("conectado", remoteStream)
-        })
+      })
+      .catch((reason) => {
+        console.log(reason);
       });
   }
 
@@ -50,6 +43,7 @@ function NewUser() {
       <button onClick={openVideo}>Open Video</button>
       <input type="text" placeholder="Id para conectar" value={inputValue} onChange={handleInput} />
       <br />
+      <h1>Viendo pantalla</h1>
       <video id="video-invitado" height="300"></video>
     </>
   );

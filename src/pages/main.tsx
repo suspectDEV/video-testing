@@ -8,68 +8,44 @@ const peerjs = new Peer(undefined, {
 });
 
 function Main() {
-
-  const [notiVal, setNotiVal] = useState("")
+  const [notiVal, setNotiVal] = useState("");
 
   useEffect(() => {
-    onPeer()
+    init();
   }, []);
 
-  // function readVideo() {
-  //   const peers = {};
-  //   navigator.mediaDevices
-  //     .getUserMedia({
-  //       video: true,
-  //       audio: true,
-  //     })
-  //     .then((stream) => {
-  //       onPeer(stream);
-  //     })
-  //     .catch(reason => {
-  //       console.log(reason)
-  //     })
-  // }
+  const VIDEO = document.getElementById("video") as HTMLVideoElement;
 
-  function onPeer() {
-    const VIDEO = document.getElementById("video") as HTMLVideoElement;
-
-    peerjs.on("call", (call) => {
-      noti("Un usuario se ha conectado")
-      console.log("call", call)
-      
-      
-      // ..Recibo datos de llamada
-      call.answer();
-      call.on("stream", dataRecibida =>{
-        console.log("data", dataRecibida)
-        VIDEO.srcObject = dataRecibida;
-        VIDEO?.addEventListener("loadedmetadata", () => {
-          console.log("Acá está listo el video")
-          // VIDEO.play();
-        });
-
+  function init() {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: true,
+        audio: true,
       })
-
-      
-      // call.on("stream", (userVideoStream) => {
-      //   // Este es el source del otro video
-      //   console.log("reading call stream");
-      //   console.log(userVideoStream);
-      // })
-    })
+      .then((stream) => {
+        var call = peerjs.call("another-peers-id", stream);
+        console.log(stream.id)
+        call.on("stream", function (remoteStream) {
+          // Show stream in some video/canvas element.
+          console.log("Recibo datos: " , remoteStream)
+        });
+      })
+      .catch((reason) => {
+        console.log(reason);
+      });
   }
 
-  function noti(msg : string){
-    setNotiVal(msg)
+  function noti(msg: string) {
+    setNotiVal(msg);
   }
 
   return (
     <>
       <h1>Hello video</h1>
       <small>{notiVal}</small>
-      <div id="videoGrid">
+      {/* <div id="videoGrid">
         <video id="video" width="200" controls></video>
-      </div>
+      </div> */}
     </>
   );
 }

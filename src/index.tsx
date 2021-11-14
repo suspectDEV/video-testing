@@ -1,18 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Main from './pages/main';
-import NewUser from './pages/newUser';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import Main from "./pages/main";
+import NewUser from "./pages/newUser";
+import reportWebVitals from "./reportWebVitals";
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Main />
-
-    <hr />
-
-    <NewUser/>
+    <BrowserRouter>
+    <Routes>
+      <Route path={"/"} element={<Main />} />
+      <Route path={"/client"} element={<NewUser />} />
+    </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
