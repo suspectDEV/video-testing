@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PeerContext } from "../context/peer";
 
 function Main() {
+
+  const peer = useContext(PeerContext)
   const [notiVal, setNotiVal] = useState("");
 
   useEffect(() => {
@@ -10,6 +13,7 @@ function Main() {
   const VIDEO = document.getElementById("video") as HTMLVideoElement;
 
   function init() {
+    console.log(peer)
   }
 
   function noti(msg: string) {

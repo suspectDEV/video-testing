@@ -4,18 +4,21 @@ import Main from "./pages/main";
 import NewUser from "./pages/newUser";
 import reportWebVitals from "./reportWebVitals";
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { PeerContext } from "./context/peer";
+import PeerConnection from './context/peerConnection'
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-    <Routes>
-      <Route path={"/"} element={<Main />} />
-      {/* <Route path={"/client"} element={<NewUser />} /> */}
-    </Routes>
-    </BrowserRouter>
+    {/* @ts-ignore */}
+    <PeerContext.Provider value={{PeerConnection}}>
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/"} element={<Main />} />
+          {/* <Route path={"/client"} element={<NewUser />} /> */}
+        </Routes>
+      </BrowserRouter>
+    </PeerContext.Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
