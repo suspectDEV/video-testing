@@ -6,16 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PeerContext } from "./context/peer";
-import PeerConnection from './context/peerConnection'
+// import PeerConnection from './context/peerConnection'
 
 ReactDOM.render(
   <React.StrictMode>
     {/* @ts-ignore */}
-    <PeerContext.Provider value={{PeerConnection}}>
+    <PeerContext.Provider>
       <BrowserRouter>
         <Routes>
           <Route path={"/"} element={<Main />} />
-          {/* <Route path={"/client"} element={<NewUser />} /> */}
+          <Route path={"/client"} element={<NewUser />} />
         </Routes>
       </BrowserRouter>
     </PeerContext.Provider>

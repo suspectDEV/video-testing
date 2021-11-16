@@ -1,13 +1,10 @@
-import Peer from "peerjs";
-import React, { ChangeEvent, useState } from "react";
 
-const peerjs = new Peer(undefined, {
-  host: "192.168.1.4",
-  port: 3001,
-});
+import React, { ChangeEvent, useState, useContext } from "react";
+import { PeerContext } from "../context/peer";
+
 
 function NewUser() {
-
+  const peerjs = useContext(PeerContext)
   const [inputValue, setInputValue] = useState("")
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>){
@@ -27,10 +24,10 @@ function NewUser() {
       .then((stream) => {
         console.log("estamos en el metodo")
         var call = peerjs.call(inputValue, stream);
-        call.on("stream", remoteStream => {
-          // Show stream in some video/canvas element.
-          console.log("Recibo datos: " , remoteStream)
-        });
+        // call.on("stream", remoteStream => {
+        //   // Show stream in some video/canvas element.
+        //   console.log("Recibo datos: " , remoteStream)
+        // });
       })
       .catch((reason) => {
         console.log(reason);

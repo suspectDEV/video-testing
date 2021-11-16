@@ -1,34 +1,29 @@
-import { useContext, useEffect, useState } from "react";
-import { PeerContext } from "../context/peer";
+import { useRef, useEffect } from 'react';
 
-function Main() {
-
-  const peer = useContext(PeerContext)
-  const [notiVal, setNotiVal] = useState("");
+export default function Main() {
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    init();
+    const getUserMedia = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({video: true});
+        // @ts-ignore
+        videoRef.current.srcObject = stream;
+        
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserMedia();
   }, []);
 
-  const VIDEO = document.getElementById("video") as HTMLVideoElement;
-
-  function init() {
-    console.log(peer)
-  }
-
-  function noti(msg: string) {
-    setNotiVal(msg);
-  }
-
   return (
-    <>
-      <h1>Hello video</h1>
-      <small>{notiVal}</small>
-      <div id="videoGrid">
-        <video id="video"></video>
-      </div>
-    </>
+    <div>
+      <h1>Transmitiendo...</h1>
+      <video 
+        ref={videoRef}
+        autoPlay
+      />
+    </div>
   );
 }
-
-export default Main;
