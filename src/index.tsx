@@ -6,12 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
     <Routes>
       <Route path={"/"} element={<Main />} />
-      <Route path={"/client"} element={<NewUser />} />
+      {/* <Route path={"/client"} element={<NewUser />} /> */}
     </Routes>
     </BrowserRouter>
   </React.StrictMode>,
